@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-20T15:40:00Z",
+  "title": "Design System: Lautaro García",
+  "extensions": {
+    "colorMeta": {
+      "hazard": { "role": "primary", "displayName": "Hazard Yellow", "canonical": "#ffc20e", "tonalRamp": ["#2e2100", "#4a3b00", "#6e5600", "#9a7800", "#c99c00", "#ffc20e", "#ffd75c", "#fff0c2"] },
+      "hazard-ink": { "role": "primary", "displayName": "Hazard Umber", "canonical": "#4a3b00", "tonalRamp": ["#1c1500", "#2e2400", "#4a3b00", "#665300", "#857000", "#a68d1f", "#cbb862", "#ece2b8"] },
+      "ink": { "role": "neutral", "displayName": "Carbon Ink", "canonical": "#141414", "tonalRamp": ["#0a0a0a", "#141414", "#222222", "#3a3a3a", "#5a5a5a", "#8a8a8a", "#c4c4c4", "#efefef"] },
+      "ink-2": { "role": "neutral", "displayName": "Machined Ink", "canonical": "#222222", "tonalRamp": ["#0a0a0a", "#141414", "#222222", "#3a3a3a", "#5a5a5a", "#8a8a8a", "#c4c4c4", "#efefef"] },
+      "rule": { "role": "neutral", "displayName": "Engraved Rule", "canonical": "#3a3a3a", "tonalRamp": ["#0a0a0a", "#141414", "#222222", "#3a3a3a", "#5a5a5a", "#8a8a8a", "#c4c4c4", "#efefef"] },
+      "steel": { "role": "neutral", "displayName": "Steel", "canonical": "#8a9097", "tonalRamp": ["#1b1e21", "#2e3236", "#454a50", "#5c636b", "#737a82", "#8a9097", "#bcc1c6", "#e8eaec"] },
+      "steel-ink": { "role": "neutral", "displayName": "Steel Ink", "canonical": "#5c636b", "tonalRamp": ["#1b1e21", "#2e3236", "#454a50", "#5c636b", "#737a82", "#8a9097", "#bcc1c6", "#e8eaec"] },
+      "label": { "role": "neutral", "displayName": "Label Stock", "canonical": "#f4f4f0", "tonalRamp": ["#262622", "#3d3d38", "#5e5e57", "#83837b", "#aaaaa1", "#d6d6cf", "#e8e8e2", "#f4f4f0"] },
+      "label-rule": { "role": "neutral", "displayName": "Label Rule", "canonical": "#d6d6cf", "tonalRamp": ["#262622", "#3d3d38", "#5e5e57", "#83837b", "#aaaaa1", "#d6d6cf", "#e8e8e2", "#f4f4f0"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Maker's Mark", "purpose": "The name across the hero; one per page. Archivo 900 at 125% width, uppercase." },
+      "headline": { "displayName": "Section Mark", "purpose": "Section titles, project nameplates, method verbs, the verdict. Same voice as display, smaller." },
+      "title": { "displayName": "Row Title", "purpose": "Row names in plates, table row headers, header name. 112% width." },
+      "body": { "displayName": "Prose", "purpose": "Reading text on every ground, 38-52ch." },
+      "label": { "displayName": "Engraved Label", "purpose": "Field labels, nav links, plate titles, table heads. Uppercase, 0.14em tracking." },
+      "data": { "displayName": "Printed Value", "purpose": "Serials, step numbers, OK stamps, URLs, part names. Tabular, slashed zero." }
+    },
+    "shadows": [
+      { "name": "plate-engraving", "value": "inset 0 0 0 1px #2c2c2c, inset 0 0 0 7px var(--color-ink), inset 0 0 0 8px var(--color-rule), 0 18px 40px -18px rgb(20 20 20 / 0.55)", "purpose": "Every plate: bevel, margin, engraved border, soft cast shadow." },
+      { "name": "rivet-ring", "value": "inset 0 0 0 1px var(--color-steel), inset 0 0 0 3px var(--color-ink), inset 0 0 0 4.5px #3f4347", "purpose": "Flat engraved 9px rivet ring at plate corners." },
+      { "name": "die-rest", "value": "0 10px 22px -12px rgb(20 20 20 / 0.7)", "purpose": "Solid die button at rest." },
+      { "name": "die-lift", "value": "0 16px 28px -14px rgb(20 20 20 / 0.75)", "purpose": "Solid die button on hover, with 2px rise." },
+      { "name": "die-outline", "value": "inset 0 0 0 2px var(--color-ink)", "purpose": "Line die button outline." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All state transitions and inspection animations." },
+      { "name": "inspect-sweep", "value": "sweep 0.7s ease-out-expo, delay i*0.55s+0.4s", "purpose": "16% hazard band wipes across each inspection row, then fades." },
+      { "name": "stamp", "value": "stamp 0.45s ease-out-expo, delay i*0.55s+0.85s (verdict 0.6s at 3.1s)", "purpose": "OK stamps and the verdict land from scale 1.6 with blur clearing. Paused below 64rem until the plate is 45% in view." },
+      { "name": "die-transition", "value": "transform/box-shadow 0.35s ease-out-expo, background-color 0.2s", "purpose": "Die button hover and press." },
+      { "name": "plate-focus", "value": "filter/opacity 0.4s, transform 0.5s ease-out-expo", "purpose": "Lit project plate rises 4px; siblings drop to grayscale at 60% opacity." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "64rem" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Die Button Solid",
+      "kind": "button",
+      "refersTo": "button-die-solid",
+      "description": "Primary die-cut action: ink with hazard text; inverts on black surfaces.",
+      "html": "<a href=\"#\" class=\"ds-die ds-die-solid\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M12 3v12M6.5 9.5 12 15l5.5-5.5M4 20h16\"/></svg>Descargar CV</a>",
+      "css": ".ds-die { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 3.25rem; padding: 0 1.4rem; border-radius: 4px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-stretch: 115%; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s cubic-bezier(0.16,1,0.3,1), background-color 0.2s; } .ds-die:active { transform: translateY(1px); } .ds-die:focus-visible { outline: 3px solid #141414; outline-offset: 3px; } .ds-die-solid { background: #141414; color: #ffc20e; box-shadow: 0 10px 22px -12px rgb(20 20 20 / 0.7); } .ds-die-solid:hover { transform: translateY(-2px); box-shadow: 0 16px 28px -14px rgb(20 20 20 / 0.75); }"
+    },
+    {
+      "name": "Die Button Line",
+      "kind": "button",
+      "refersTo": "button-die-line",
+      "description": "Secondary die-cut action: 2px inset ink outline, 8% ink fill on hover.",
+      "html": "<a href=\"#\" class=\"ds-die-line\">Ver proyectos<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M12 4v15M6 13l6 6 6-6\"/></svg></a>",
+      "css": ".ds-die-line { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 3.25rem; padding: 0 1.4rem; border-radius: 4px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; font-stretch: 115%; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; color: #141414; box-shadow: inset 0 0 0 2px #141414; transition: background-color 0.2s, transform 0.35s cubic-bezier(0.16,1,0.3,1); } .ds-die-line:hover { background: rgb(20 20 20 / 0.08); } .ds-die-line:active { transform: translateY(1px); } .ds-die-line:focus-visible { outline: 3px solid #141414; outline-offset: 3px; }"
+    },
+    {
+      "name": "Header Bar",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky ink bar: hazard LG cell, engraved steel anchors, hazard CV cell.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><span class=\"ds-nav-logo\">LG</span>Lautaro García</a><ul><li><a class=\"ds-nav-link\" href=\"#\">Método</a></li><li><a class=\"ds-nav-link\" href=\"#\">Proyectos</a></li><li><a class=\"ds-nav-link\" href=\"#\">Contacto</a></li></ul><a class=\"ds-nav-cv\" href=\"#\">CV</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 1.5rem; height: 4rem; padding: 0 2rem; background: #141414; color: #f4f4f0; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; } .ds-nav ul { display: flex; gap: 0.25rem; margin: 0 0 0 auto; padding: 0; list-style: none; } .ds-nav-brand { display: flex; align-items: center; gap: 0.75rem; color: inherit; text-decoration: none; font-weight: 700; font-size: 0.875rem; font-stretch: 112%; } .ds-nav-logo { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 3px; background: #ffc20e; color: #141414; font-weight: 900; font-stretch: 125%; font-size: 0.95rem; letter-spacing: -0.02em; } .ds-nav-link, .ds-nav-cv { display: block; border-radius: 3px; padding: 0.5rem 0.75rem; font-stretch: 112%; font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; } .ds-nav-link { color: #8a9097; transition: color 0.15s, background-color 0.15s; } .ds-nav-link:hover { background: #222222; color: #ffc20e; } .ds-nav-link:focus-visible, .ds-nav-cv:focus-visible { outline: 3px solid #ffc20e; outline-offset: 3px; } .ds-nav-cv { background: #ffc20e; color: #141414; padding: 0.625rem 0.875rem; transition: transform 0.15s; } .ds-nav-cv:hover { transform: translateY(-1px); }"
+    },
+    {
+      "name": "Rating Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Signature black data plate: engraved inset rule, four flat rivets, fixed label/value fields, OK stamps and an unrotated verdict cell.",
+      "html": "<figure class=\"ds-plate\"><span class=\"ds-rivet\" style=\"left:10px;top:10px\"></span><span class=\"ds-rivet\" style=\"right:10px;top:10px\"></span><span class=\"ds-rivet\" style=\"left:10px;bottom:10px\"></span><span class=\"ds-rivet\" style=\"right:10px;bottom:10px\"></span><div class=\"ds-plate-head\"><span class=\"ds-engraved\" style=\"color:#ffc20e\">Placa de datos</span><span class=\"ds-data\">N.º LG-2026</span></div><dl><div class=\"ds-field\"><dt class=\"ds-engraved\">Modelo</dt><dd>Software Developer</dd></div><div class=\"ds-field\"><dt class=\"ds-engraved\">Entrada</dt><dd>Cualquier problema</dd></div></dl><ol class=\"ds-steps\"><li><span class=\"ds-data\">01</span><b>Entender</b><span class=\"ds-ok\">OK</span></li><li><span class=\"ds-data\">02</span><b>Definir</b><span class=\"ds-ok\">OK</span></li></ol><div class=\"ds-field ds-verdict-row\"><span class=\"ds-engraved\">Veredicto</span><span class=\"ds-verdict\">Conforme</span></div></figure>",
+      "css": ".ds-plate { position: relative; margin: 0; max-width: 36rem; padding: 1.25rem 0 1.5rem; background: #141414; color: #f4f4f0; border-radius: 6px; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; box-shadow: inset 0 0 0 1px #2c2c2c, inset 0 0 0 7px #141414, inset 0 0 0 8px #3a3a3a, 0 18px 40px -18px rgb(20 20 20 / 0.55); } .ds-plate dl { margin: 0; border-top: 1px solid #3a3a3a; } .ds-rivet { position: absolute; width: 9px; height: 9px; border-radius: 999px; background: #141414; box-shadow: inset 0 0 0 1px #8a9097, inset 0 0 0 3px #141414, inset 0 0 0 4.5px #3f4347; } .ds-plate-head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 1.75rem 0.75rem; } .ds-engraved { font-stretch: 112%; font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9097; } .ds-data { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums slashed-zero; font-size: 0.75rem; color: #8a9097; } .ds-field { display: grid; grid-template-columns: 8rem 1fr; gap: 1rem; align-items: baseline; padding: 0.75rem 1.75rem; border-bottom: 1px solid #3a3a3a; } .ds-field dd { margin: 0; font-weight: 600; font-size: 0.98rem; } .ds-steps { list-style: none; margin: 0; padding: 0.5rem 1.75rem 0; } .ds-steps li { display: flex; align-items: center; gap: 1rem; padding: 0.625rem 0; border-bottom: 1px dashed #3a3a3a; } .ds-steps li:last-child { border-bottom: 0; } .ds-steps b { flex: 1; font-stretch: 112%; letter-spacing: 0.025em; } .ds-ok { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700; font-size: 0.7rem; padding: 0.125rem 0.375rem; border-radius: 2px; background: #ffc20e; color: #141414; } .ds-verdict-row { align-items: center; border-top: 1px solid #3a3a3a; border-bottom: 0; margin-top: 1rem; padding-top: 1rem; } .ds-verdict { justify-self: start; padding: 0.5rem 0.75rem; border-radius: 3px; background: #ffc20e; color: #141414; font-weight: 900; font-stretch: 125%; font-size: 1.125rem; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Project Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Plate with a hazard nameplate on top, fixed fields, bottom rivets only, and a destination bar that lights hazard on hover.",
+      "html": "<article class=\"ds-pplate\"><span class=\"ds-prv\" style=\"left:10px\"></span><span class=\"ds-prv\" style=\"right:10px\"></span><header class=\"ds-pplate-name\"><h3>GoNext</h3><span>N.º 02</span></header><dl><div class=\"ds-pfield\"><dt>Problema</dt><dd>Backend en Go con la estructura de NestJS.</dd></div><div class=\"ds-pfield\"><dt>Destino</dt><dd><a class=\"ds-dest\" href=\"#\"><span>github.com/LautaroGarc/GoNext</span><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></a></dd></div></dl></article>",
+      "css": ".ds-pplate { position: relative; max-width: 36rem; padding-bottom: 1.75rem; background: #141414; color: #f4f4f0; border-radius: 6px; overflow: hidden; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; box-shadow: inset 0 0 0 1px #2c2c2c, inset 0 0 0 7px #141414, inset 0 0 0 8px #3a3a3a, 0 18px 40px -18px rgb(20 20 20 / 0.55); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); } .ds-pplate:hover { transform: translateY(-4px); } .ds-pplate dl { margin: 0.5rem 0 0; } .ds-prv { position: absolute; bottom: 10px; width: 9px; height: 9px; border-radius: 999px; box-shadow: inset 0 0 0 1px #8a9097, inset 0 0 0 3px #141414, inset 0 0 0 4.5px #3f4347; } .ds-pplate-name { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; margin: 0.5rem 0.5rem 0; padding: 1.75rem 1.5rem 1.25rem; border-radius: 3px 3px 0 0; background: #ffc20e; color: #141414; } .ds-pplate-name h3 { margin: 0; font-weight: 900; font-stretch: 125%; font-size: 2.5rem; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; } .ds-pplate-name span { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.75rem; } .ds-pfield { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1.25rem; padding: 1rem 2rem; border-top: 1px solid #3a3a3a; } .ds-pfield dt { font-stretch: 112%; font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9097; padding-top: 0.125rem; } .ds-pfield dd { margin: 0; line-height: 1.625; color: rgb(244 244 240 / 0.9); } .ds-dest { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.875rem 1rem; border-radius: 3px; background: #222222; color: #f4f4f0; text-decoration: none; font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700; font-size: 0.875rem; transition: background-color 0.15s, color 0.15s; } .ds-dest:hover { background: #ffc20e; color: #141414; } .ds-dest:focus-visible { outline: 3px solid #ffc20e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Part Chip",
+      "kind": "chip",
+      "description": "Mono part tag in the parts list: white with a 1px inset label-rule outline, 2px corners.",
+      "html": "<ul class=\"ds-chips\"><li class=\"ds-chip\">TypeScript</li><li class=\"ds-chip\">PostgreSQL</li><li class=\"ds-chip\">React Router</li></ul>",
+      "css": ".ds-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; } .ds-chip { padding: 0.25rem 0.5rem; border-radius: 2px; background: #ffffff; color: #141414; box-shadow: inset 0 0 0 1px #d6d6cf; font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums slashed-zero; font-size: 0.8rem; }"
+    },
+    {
+      "name": "Method Cell",
+      "kind": "custom",
+      "description": "One step of the method grid on ink: hazard number cell, rule line, maker's-mark verb, prose, pinned output.",
+      "html": "<div class=\"ds-mcell\"><div class=\"ds-mcell-top\"><span class=\"ds-mnum\">1</span><span class=\"ds-mline\"></span></div><h3>Entender</h3><p>Qué problema hay de verdad, para quién.</p><p class=\"ds-mout\"><span>Salida</span><b>El problema escrito en una frase</b></p></div>",
+      "css": ".ds-mcell { display: flex; flex-direction: column; max-width: 20rem; padding: 2rem; background: #141414; color: #f4f4f0; font-family: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif; border-radius: 6px; } .ds-mcell-top { display: flex; align-items: center; gap: 0.75rem; } .ds-mnum { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 3px; background: #ffc20e; color: #141414; font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700; font-size: 0.875rem; } .ds-mline { flex: 1; height: 2px; background: #3a3a3a; } .ds-mcell h3 { margin: 2rem 0 0; font-weight: 900; font-stretch: 125%; font-size: 1.9rem; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; } .ds-mcell p { margin: 1rem 0 0; line-height: 1.625; color: rgb(244 244 240 / 0.8); } .ds-mout { padding-top: 2rem; } .ds-mout span { display: block; font-stretch: 112%; font-weight: 700; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: #8a9097; } .ds-mout b { display: block; margin-top: 0.375rem; font-weight: 600; color: #ffc20e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Rating Plate",
+    "overview": "Every surface ships like an industrial tool in its packaging: safety yellow owns whole regions, carbon-black plates carry the facts in fixed fields, and white label stock holds dense reading. Nothing is decorative except structure itself; engraved rules, corner rivets, field labels, serial numbers and stamped verdicts are the ornament because they are also the information.\n\nDensity is deliberate and bimodal. Fields of color are vast and quiet (a full-bleed yellow hero, a black method band, a label-white parts list), while the plates inside them are compact, tabular and ruled. The maker's mark is Archivo pushed to its widest and heaviest; prose drops back to Archivo at normal width; JetBrains Mono appears only where a value would be printed on a plate: serials, step numbers, URLs, part names.\n\nThe world rejects the dark developer portfolio with neon cards and terminal costume. Black here is steel plate on a yellow ground, never a dark-mode canvas.",
+    "keyCharacteristics": [
+      "Three grounds only: hazard yellow, carbon ink, white label stock. Each section owns one ground edge to edge.",
+      "Plates: black, 6px corners, double engraved inset rule, flat engraved-ring rivets, labels in fixed left columns.",
+      "Type in three voices: expanded black maker's mark, normal-width prose, mono spec values.",
+      "Motion is inspection: a sweep across each row, then an OK stamp, then the verdict.",
+      "One plate lit at a time: hovering a project drops its siblings to steel."
+    ],
+    "rules": [
+      { "name": "The Three Grounds Rule", "body": "A section sits on hazard, ink or label, full-bleed. Grounds alternate by section; they never appear as cards floating on another ground except as a plate.", "section": "colors" },
+      { "name": "The Lit Signal Rule", "body": "On black, yellow marks only the thing that is true or actionable now: a stamp, a verdict, a nameplate, a number, an action. Everything else on black is label or steel.", "section": "colors" },
+      { "name": "The Maker's Mark Rule", "body": "Expanded black uppercase (900, 125% width) is reserved for names and headings: the person, the sections, the models, the verdict. Never for sentences of prose.", "section": "typography" },
+      { "name": "The Printed Value Rule", "body": "Mono is only for values a machine would print: numbers, serials, identifiers, part names, URLs. Never for headings or prose.", "section": "typography" },
+      { "name": "The Engraved Not Lifted Rule", "body": "Edges are cut in with inset rules. Cast shadows are soft, blurred, and spread negative so they sit directly under the object; never hard offset blocks.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do give every section one full-bleed ground: hazard, ink or label.",
+      "Do put facts on plates as fixed label and value fields with engraved rules between them, in the same order on every plate of a kind.",
+      "Do keep hazard on black for stamps, verdicts, nameplates, numbers and actions.",
+      "Do set names and headings in Archivo 900 at 125% width, uppercase, line-height 0.88.",
+      "Do use mono only for printed values: serials, step numbers, URLs, part names.",
+      "Do keep corners on the 2/3/4/6px ladder and draw outlines as inset box-shadows.",
+      "Do animate as inspection (sweep, stamp, verdict) with expo-out easing, and show the final state under reduced motion."
+    ],
+    "donts": [
+      "Don't add hues beyond hazard, the inks, steels and label stock.",
+      "Don't turn black into a dark-mode canvas with glowing or neon cards, or dress code in terminal costume.",
+      "Don't use hard offset block shadows; cast shadows stay soft and sit directly under the object.",
+      "Don't set prose in the maker's mark or headings in mono.",
+      "Don't put small labels above section headings; labels belong inside plates and tables as field names.",
+      "Don't rotate stamps or the verdict cell, or give rivets a dome or highlight."
+    ]
+  }
+}

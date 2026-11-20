@@ -1,0 +1,250 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
+@theme {
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-hazard: #ffc20e;
+  --color-hazard-ink: #4a3b00; /* texto secundario sobre amarillo */
+  --color-ink: #141414;
+  --color-ink-2: #222222;
+  --color-rule: #3a3a3a; /* líneas grabadas sobre placa negra */
+  --color-steel: #8a9097; /* secundario sobre negro */
+  --color-steel-ink: #5c636b; /* secundario sobre etiqueta */
+  --color-label: #f4f4f0;
+  --color-label-rule: #d6d6cf;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+    @media (width >= 48rem) {
+      scroll-padding-top: 4.5rem;
+    }
+    scrollbar-color: var(--color-ink) var(--color-hazard);
+    color-scheme: light;
+    background: var(--color-ink); /* lo que asoma al pasarse de scroll */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-stretch: 100%;
+    -webkit-font-smoothing: antialiased;
+    caret-color: var(--color-ink);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-hazard);
+  }
+  .on-ink ::selection,
+  .on-ink::selection {
+    background: var(--color-hazard);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--color-hazard);
+  }
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 2px;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@layer components {
+  /* Voz de fabricante: grotesca expandida y negra */
+  .maker {
+    font-stretch: 125%;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 0.88;
+    text-transform: uppercase;
+  }
+  .engraved {
+    font-stretch: 112%;
+    font-weight: 700;
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .data {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+
+  /* Placa de datos: acero negro, remaches, campos fijos */
+  .plate {
+    position: relative;
+    background: var(--color-ink);
+    color: var(--color-label);
+    border-radius: 6px;
+    box-shadow:
+      inset 0 0 0 1px #2c2c2c,
+      inset 0 0 0 7px var(--color-ink),
+      inset 0 0 0 8px var(--color-rule),
+      0 18px 40px -18px rgb(20 20 20 / 0.55);
+  }
+  .rivet {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--color-ink);
+    box-shadow:
+      inset 0 0 0 1px var(--color-steel),
+      inset 0 0 0 3px var(--color-ink),
+      inset 0 0 0 4.5px #3f4347;
+  }
+
+  /* Botones troquelados */
+  .die {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 3.25rem;
+    padding: 0 1.4rem;
+    border-radius: 4px;
+    font-stretch: 115%;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform 0.35s var(--ease-out-expo),
+      box-shadow 0.35s var(--ease-out-expo),
+      background-color 0.2s;
+  }
+  .die:active {
+    transform: translateY(1px);
+  }
+  .die-solid {
+    background: var(--color-ink);
+    color: var(--color-hazard);
+    box-shadow: 0 10px 22px -12px rgb(20 20 20 / 0.7);
+  }
+  .die-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px -14px rgb(20 20 20 / 0.75);
+  }
+  .die-line {
+    color: var(--color-ink);
+    box-shadow: inset 0 0 0 2px var(--color-ink);
+  }
+  .die-line:hover {
+    background: rgb(20 20 20 / 0.08);
+  }
+  .on-ink .die-solid {
+    background: var(--color-hazard);
+    color: var(--color-ink);
+  }
+
+  /* Inspección: cada paso se sella en orden */
+  .inspect-row {
+    position: relative;
+  }
+  .inspect-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(255 194 14 / 0.16);
+    clip-path: inset(0 100% 0 0);
+    animation: sweep 0.7s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i) * 0.55s + 0.4s);
+    pointer-events: none;
+  }
+  [data-plate] .inspect-ok {
+    animation: stamp 0.45s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i) * 0.55s + 0.85s);
+  }
+  .verdict {
+    animation: stamp 0.6s var(--ease-out-expo) both;
+    animation-delay: 3.1s;
+  }
+  @media (width < 64rem) {
+    [data-plate]:not([data-inspect="run"]) .inspect-row::before,
+    [data-plate]:not([data-inspect="run"]) .inspect-ok,
+    [data-plate]:not([data-inspect="run"]) .verdict {
+      animation-play-state: paused;
+    }
+  }
+
+  /* Placas de proyecto: la que mirás se enciende */
+  .plates:has(.project:hover) .project:not(:hover),
+  .plates:has(.project:focus-within) .project:not(:focus-within) {
+    filter: grayscale(1) brightness(0.92);
+    opacity: 0.6;
+  }
+  .project {
+    transition:
+      filter 0.4s var(--ease-out-expo),
+      opacity 0.4s var(--ease-out-expo),
+      transform 0.5s var(--ease-out-expo);
+  }
+  .project:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes sweep {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 1;
+  }
+  70% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 0;
+  }
+}
+@keyframes stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.6);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inspect-row::before {
+    animation: none;
+    display: none;
+  }
+  .inspect-ok,
+  .verdict {
+    animation: none;
+  }
+  .project,
+  .die {
+    transition: none;
+  }
+}
