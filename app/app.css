@@ -27,7 +27,7 @@
     @media (width >= 48rem) {
       scroll-padding-top: 4.5rem;
     }
-    scrollbar-color: var(--color-ink) var(--color-hazard);
+    scrollbar-color: var(--color-steel) transparent;
     color-scheme: light;
     background: var(--color-ink); /* lo que asoma al pasarse de scroll */
   }
