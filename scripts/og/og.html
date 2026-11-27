@@ -1,0 +1,92 @@
+<!doctype html>
+<!-- Fuente de public/og-image.png (1200×630). Regenerar con: sh scripts/og/build.sh -->
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Archivo Variable"; src: url("../../node_modules/@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+
+  :root {
+    --hazard: #ffc20e; --hazard-ink: #4a3b00; --ink: #141414; --ink-2: #222222;
+    --rule: #3a3a3a; --steel: #8a9097; --label: #f4f4f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--hazard); color: var(--ink);
+    font-family: "Archivo Variable", sans-serif; -webkit-font-smoothing: antialiased;
+    padding: 56px 64px 0;
+    display: grid; grid-template-rows: auto auto 1fr;
+  }
+  .maker { font-stretch: 125%; font-weight: 900; letter-spacing: -0.02em; line-height: 0.88; text-transform: uppercase; }
+  .engraved { font-stretch: 112%; font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .data { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums slashed-zero; }
+
+  h1 { font-size: 92px; white-space: nowrap; }
+  .title {
+    margin-top: 22px; padding-top: 12px; border-top: 3px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 30px; font-weight: 800; font-stretch: 118%; text-transform: uppercase;
+  }
+  .title .data { font-size: 18px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+
+  .body { display: grid; grid-template-columns: minmax(0, 1fr) 500px; gap: 56px; padding-top: 34px; min-height: 0; }
+  .promise { font-size: 50px; font-weight: 800; font-stretch: 110%; line-height: 1.04; max-width: 13ch; }
+  .lede { margin-top: 18px; font-size: 21px; line-height: 1.45; color: var(--hazard-ink); max-width: 30ch; }
+
+  .plate {
+    position: relative; align-self: start;
+    background: var(--ink); color: var(--label); border-radius: 6px;
+    padding: 24px 0 26px;
+    box-shadow:
+      inset 0 0 0 1px #2c2c2c, inset 0 0 0 8px var(--ink), inset 0 0 0 9px var(--rule),
+      0 24px 48px -20px rgb(20 20 20 / 0.6);
+  }
+  .rivet {
+    position: absolute; width: 11px; height: 11px; border-radius: 999px; background: var(--ink);
+    box-shadow: inset 0 0 0 1px var(--steel), inset 0 0 0 3.5px var(--ink), inset 0 0 0 5.5px #3f4347;
+  }
+  .r1 { left: 12px; top: 12px; } .r2 { right: 12px; top: 12px; }
+  .r3 { left: 12px; bottom: 12px; } .r4 { right: 12px; bottom: 12px; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; padding: 0 32px 12px; }
+  .head .engraved { color: var(--hazard); }
+  .head .data { font-size: 14px; color: var(--steel); }
+  .rows { border-top: 1px solid var(--rule); padding: 6px 32px 0; list-style: none; }
+  .rows li { display: flex; align-items: center; gap: 18px; padding: 11px 0; border-bottom: 1px dashed var(--rule); }
+  .rows li:last-child { border-bottom: 0; }
+  .rows .n { width: 26px; font-size: 14px; color: var(--steel); }
+  .rows .v { flex: 1; font-size: 21px; font-weight: 700; font-stretch: 112%; letter-spacing: 0.02em; }
+  .ok { background: var(--hazard); color: var(--ink); border-radius: 2px; padding: 3px 8px; font-size: 14px; font-weight: 700; }
+  .verdict {
+    margin-top: 8px; border-top: 1px solid var(--rule); padding: 18px 32px 0;
+    display: grid; grid-template-columns: 1fr auto; align-items: center;
+  }
+  .verdict .engraved { color: var(--steel); }
+  .verdict .cell { background: var(--hazard); color: var(--ink); border-radius: 3px; padding: 10px 14px; font-size: 26px; line-height: 1; }
+</style>
+</head>
+<body>
+  <h1 class="maker">Lautaro García</h1>
+  <p class="title"><span>Software Developer</span><span class="data">lautarogarcia.site</span></p>
+
+  <div class="body">
+    <div>
+      <p class="promise">Resuelvo problemas con un proceso, no con suerte.</p>
+    </div>
+
+    <div class="plate">
+      <span class="rivet r1"></span><span class="rivet r2"></span><span class="rivet r3"></span><span class="rivet r4"></span>
+      <div class="head"><span class="engraved">Proceso de control</span><span class="data">N.º LG-2026</span></div>
+      <ol class="rows">
+        <li><span class="n data">01</span><span class="v">Entender</span><span class="ok data">OK</span></li>
+        <li><span class="n data">02</span><span class="v">Definir</span><span class="ok data">OK</span></li>
+        <li><span class="n data">03</span><span class="v">Construir</span><span class="ok data">OK</span></li>
+        <li><span class="n data">04</span><span class="v">Verificar</span><span class="ok data">OK</span></li>
+      </ol>
+      <div class="verdict"><span class="engraved">Veredicto</span><span class="cell maker">Conforme</span></div>
+    </div>
+  </div>
+</body>
+</html>

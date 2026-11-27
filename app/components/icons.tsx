@@ -37,6 +37,22 @@ export function ArrowDownIcon({ className }: IconProps) {
   );
 }
 
+export function ArrowLeftIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M20 12H5M11 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
+export function RetryIcon({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" />
+    </svg>
+  );
+}
+
 export function GithubIcon({ className }: IconProps) {
   return (
     <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>

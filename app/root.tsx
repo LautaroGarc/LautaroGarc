@@ -4,32 +4,46 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import archivoFont from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
+import { FaultReport, NotFoundReport } from "./components/fault-report";
+import { ArrowLeftIcon, RetryIcon } from "./components/icons";
+import { profile } from "./data/profile";
+import { site } from "./data/site";
 
 export const links: Route.LinksFunction = () => [
+  // La fuente del titular es el LCP: se pide en paralelo con el CSS.
+  { rel: "preload", href: archivoFont, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
   { rel: "icon", href: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
   { rel: "manifest", href: "/site.webmanifest" },
+  { rel: "sitemap", type: "application/xml", href: "/sitemap.xml" },
+  { rel: "alternate", type: "text/markdown", href: "/llms.txt", title: "Resumen para modelos de lenguaje" },
+  { rel: "me", href: profile.github },
+  ...(profile.linkedin ? [{ rel: "me", href: profile.linkedin }] : []),
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-AR">
+    <html lang={site.lang}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#ffc20e" />
+        <meta name="color-scheme" content="light" />
+        <meta name="format-detection" content="telephone=no" />
         <Meta />
         <Links />
       </head>
       <body>
         {children}
-        <ScrollRestoration />
+        {/* Sin <ScrollRestoration />: es una sola página con anclas, y el router
+            pisaba el scroll suave al cambiar el hash (había que cliquear 2 veces). */}
         <Scripts />
       </body>
     </html>
@@ -40,32 +54,53 @@ export default function App() {
   return <Outlet />;
 }
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Error";
-  let details = "Ocurrió un error inesperado.";
-  let stack: string | undefined;
+export function meta({ error }: Route.MetaArgs) {
+  if (!error) return [];
+  return [{ title: `Error · ${profile.name}` }, { name: "robots", content: "noindex, follow" }];
+}
 
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "Esta página no existe."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const { pathname } = useLocation();
+
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return <NotFoundReport path={pathname} />;
   }
 
+  const code = isRouteErrorResponse(error) ? error.status : 500;
+  const stack = import.meta.env.DEV && error instanceof Error ? error.stack : undefined;
+
   return (
-    <main className="mx-auto max-w-3xl px-4 pt-24 pb-16">
-      <h1 className="maker text-6xl">{message}</h1>
-      <p className="mt-6 text-lg">{details}</p>
-      <a href="/" className="die die-solid mt-10">Volver al inicio</a>
+    <FaultReport
+      code={code}
+      headline="Algo se rompió"
+      promise="La página falló la inspección del servidor."
+      summary="No es por algo que hayas hecho. Probá recargar en un momento; si sigue fallando, el resto del sitio te espera en el inicio."
+      path={pathname}
+      expected="Una página del sitio"
+      found="Un error al prepararla"
+      steps={[
+        { label: "Recibir el pedido", status: "ok" },
+        { label: "Preparar la página", status: "fail" },
+        { label: "Entregarla", status: "skip" },
+      ]}
+      actions={
+        <>
+          <button type="button" onClick={() => window.location.reload()} className="die die-solid cursor-pointer">
+            <RetryIcon />
+            Recargar
+          </button>
+          <a href="/" className="die die-line">
+            <ArrowLeftIcon />
+            Volver al inicio
+          </a>
+        </>
+      }
+    >
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
+        <pre className="plate on-ink mt-12 overflow-x-auto p-6 text-xs">
+          <code className="data">{stack}</code>
         </pre>
       )}
-    </main>
+    </FaultReport>
   );
 }

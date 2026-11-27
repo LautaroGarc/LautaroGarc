@@ -3,11 +3,13 @@ import { Header } from "../components/header";
 import { Hero } from "../components/hero";
 import { Contact, Footer, Method, Projects, Tools } from "../components/sections";
 import { profile } from "../data/profile";
+import { site } from "../data/site";
+import { homeJsonLd, pageMeta } from "../lib/seo";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: `${profile.name} · ${profile.title}` },
-    { name: "description", content: `${profile.promise} ${profile.summary}` },
+    ...pageMeta({ title: `${profile.name} · ${profile.title}`, description: site.description, path: "/" }),
+    { "script:ld+json": homeJsonLd() },
   ];
 }
 

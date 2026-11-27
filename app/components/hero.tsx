@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useInspectOnView } from "../lib/use-inspect";
 import { method, profile } from "../data/profile";
 import { ArrowDownIcon, DownloadIcon, Rivets } from "./icons";
 
@@ -12,27 +12,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 }
 
 function RatingPlate() {
-  const ref = useRef<HTMLElement>(null);
-  // En pantallas angostas la placa queda debajo del pliegue: la inspección arranca pausada (CSS) y corre al verse.
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (!("IntersectionObserver" in window)) {
-      el.dataset.inspect = "run";
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.dataset.inspect = "run";
-          io.disconnect();
-        }
-      },
-      { threshold: 0.45 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const ref = useInspectOnView<HTMLElement>();
 
   return (
     <figure ref={ref} data-plate className="plate on-ink w-full overflow-hidden pt-5 pb-6" aria-label="Placa de datos">

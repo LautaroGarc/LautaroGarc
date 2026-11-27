@@ -234,6 +234,12 @@ The hero's data plate: title in hazard label type and serial in mono across the 
 ### Project Plate (signature)
 A plate whose top is a hazard nameplate (3px top corners, inset 0.5rem) carrying the model name in the maker's mark and N.º in mono, followed by fixed fields Tipo, Problema, Solución and Destino. Destino is an ink-2 bar with the URL in mono and an out-arrow; hover turns it hazard, and the whole plate is the hit area. Hovering or focusing one plate rises it 4px and drops its siblings to grayscale at 60% opacity. New projects are new data on the same plate.
 
+### Inspection Report (404 / error)
+The error pages reuse the hero's composition on a hazard ground: the headline in the display voice (clamp(1.9rem, 9.2vw, 6rem) so "Encontrada" never overflows at 360px), "Error {code}" on the ruled title line, and a plate titled "Informe de inspección" with N.º {code}. Fixed fields Solicitud (the requested path in mono hazard), Esperado and Encontrado; then the same control process, where a passed step gets the filled OK stamp, the failed step a hollow FALLA stamp (inset 1.5px hazard outline, hazard text), and the step that never ran a steel dash with no sweep. The verdict "No conforme" stamps right after the last inspected row. Actions: "Volver al inicio" (solid) and "Ver proyectos" (line); the 500 variant swaps the first for "Recargar".
+
+### Share Image (og-image.png)
+1200×630 raster rendered from `scripts/og/og.html` with the real Archivo and JetBrains Mono files (`sh scripts/og/build.sh`). Hazard ground, name in the maker's mark across the width, ruled title line with the domain in mono, promise at left, and the control-process plate with four OK stamps and the Conforme verdict at right. Sizes are scaled for a 1200px canvas, not taken from the web ramp.
+
 ### Method Grid
 Four cells on ink separated by 1px rule gaps: a hazard numbered cell joined to a 2px rule line, the verb in the maker's mark, prose at 80% label, and an output pinned to the bottom with a steel label over hazard text.
 

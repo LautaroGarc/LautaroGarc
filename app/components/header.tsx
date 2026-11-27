@@ -8,11 +8,12 @@ const nav = [
   { href: "#contacto", label: "Contacto" },
 ];
 
-export function Header() {
+// `base` = "/" fuera de la home, para que las anclas lleven de vuelta a la página.
+export function Header({ base = "" }: { base?: string }) {
   return (
     <header className="on-ink sticky top-0 z-50 bg-ink text-label">
       <div className="mx-auto flex h-16 max-w-[90rem] items-center gap-6 px-4 sm:px-8">
-        <a href="#inicio" className="flex items-center gap-3 no-underline" aria-label="Lautaro García, ir al inicio">
+        <a href={base ? "/" : "#inicio"} className="flex items-center gap-3 no-underline" aria-label="Lautaro García, ir al inicio">
           <img src="/favicon.svg" alt="" width={36} height={36} className="size-9" />
           <span className="hidden text-sm font-bold tracking-wide sm:block" style={{ fontStretch: "112%" }}>
             {profile.name}
@@ -23,7 +24,7 @@ export function Header() {
             {nav.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={base + item.href}
                   className="engraved block rounded-[3px] px-3 py-2 text-steel no-underline transition-colors hover:bg-ink-2 hover:text-hazard"
                 >
                   {item.label}
@@ -45,7 +46,7 @@ export function Header() {
         <ul className="flex justify-between px-1">
           {nav.map((item) => (
             <li key={item.href}>
-              <a href={item.href} className="engraved block px-1.5 py-3 !tracking-[0.06em] text-steel no-underline hover:text-hazard">
+              <a href={base + item.href} className="engraved block px-1.5 py-3 !tracking-[0.06em] text-steel no-underline hover:text-hazard">
                 {item.label}
               </a>
             </li>
